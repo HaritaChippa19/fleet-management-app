@@ -130,6 +130,15 @@
                 render();
             }
         }
+
+        document.getElementById("catFilter").onchange = render;
+        document.getElementById("availFilter").onchange = render;
+
+        function clearFilters(){
+            document.getElementById("catFilter").onchange = "All";
+            document.getElementById("availFilter").onchange = "All";
+            render();
+        }
     </script>
 </body>
 </html>
