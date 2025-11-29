@@ -4,8 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Page</title>
+    <style>
+        .nav{
+            background-color: bisque;
+            padding: 1rem;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="nav">
+        <div class="filters">
+            <select id="catFilter">
+                <option>All</option><option>Auto</option>
+                <option>Car</option><option>Track</option><option>Bus</option>
+            </select>
+
+            <select id="availFilter">
+                <option>All</option>
+                <option>Available</option>
+                <option>Unavailable</option>
+            </select>
+
+            <button onclick="clearFilters()">Clear Filter</button>
+        </div>
+    </div>
+
+    <section class="sidebar">
+        <form>
+            <input type="text" placeholder="Reg No. of Vehicle" id="reg" required><br><br>
+            <select id="Category" required>
+                <option value="select category" selected>Select Category</option>
+                <option value="auto">Auto</option>
+                <option value="car">Car</option>
+                <option value="truck">Truck</option>
+                <option value="bus">Bus</option>
+            </select>
+            <br><br> <input type="text" placeholder="Driver Name" id="driver"><br><br>
+            <input type="checkbox" id="avail" checked>Available <input type="checkbox" id="avail">Unvailable<br><br>
+            <button onclick="addFleet()">Add Fleet</button>
+        </form>
+    </section>
+
+    <div class="content">
+        <h3>Fleet Cards</h3>
+        <div id="grid" class="gird"></div>
+    </div>
+
+    <script>
+        let data = [];
+        let id = 1;
+
+        function addFleet(){
+            let reg = reg.value.trim();
+            let cat= document.getElementById("Category").value;
+            let driver= document.getElementById("driver").value.trim();
+            let avail= document.getElementById("avail").checked;
+            data.push({
+                id: id++,
+                reg, cat, driver,avail
+            });
+            reg.value ="";
+            driver.value="";
+            document.getElementById("Category").value = "";
+            document.getElementById("avail").checked - true;
+            render();
+        }
+
+        function render(){
+            let grid = document.getElementById("grid");
+            grid.innerHTML = "";
+
+            let cf = document.getElementById("catFilter").value;
+            let af = document.getElementById("availFilter").value;
+            
+            data.filter(e =>{
+                let c = (cf === "All"||e.cat === cf);
+                let a = (cf === "All" || 
+                (af === "Available" && e.avail)||
+                (af === "Unavailale" && e.avail));
+                return c && a;
+            }).forEach(e=>{
+                let card = document.createElement("div");
+                card.className = "card";
+
+                card.innerHTML = `${e.reg} ${e.cat} <br>
+                Driver: ${e.driver} <br>
+                Status: 
+                <span class= ${e.avail? 'avail':'unavail'}>
+                    ${e.avail?'Available':"Unavailable"}
+                </span><br><br>
+                <button class ="btn-small" onclick="updateDriver(${e.id})">
+                    Update Driver
+                </button>
+                
+                <button class ="btn-small" onclick="toggleAvail(${e.id})">
+                    Change Availablity
+                </button>
+                
+                <button class ="btn-small" onclick="deleteFleet(${e.id})">
+                    Delete Vehicle
+                </button>`;
+                grid.appendChild(card);
+            });
+        }
+
+        function
+    </script>
 </body>
 </html>
