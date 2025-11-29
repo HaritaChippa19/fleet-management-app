@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid black;
+            padding: 20px;
+            height: 200px;
+            width: 400px;
+            margin: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Fleet Management Login</h2>
+        <form>
+            <label>Email</label>
+            <input type="text" placeholder="Enter Email" id="Email" required><br><br>
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Enter Password" required><br><br>
+            <button onclick="login()" type="button">Login</button>
+        </form>
+    </div>
+    <script>
+        function login(){
+            var email = document.querySelector("#Email").value.trim();
+            var password = document.querySelector("#password").value;
+
+            if(email === "admin@gmail.com" && password === "admin1234"){
+                alert("Login Success");
+                window.location.href = "admin.html";
+            }else{
+                alert("Wrong Email or Password");
+            }
+        }
+    </script>
+</body>
+</html>
