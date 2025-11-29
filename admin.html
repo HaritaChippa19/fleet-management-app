@@ -109,7 +109,27 @@
             });
         }
 
-        function
+        function updateDriver(i){
+            let a = data.find(x => x.id === i);
+            let name = prompt("Enter new driver name:", a.driver);
+            if(name && name.trim()!==""){
+                a.driver = name.trim();
+                render();
+            }
+        }
+
+        function toggleAvail(i){
+            let a = data.find(x => x.id === i);
+            a.avail = !a.avail;
+            render();
+        }
+
+        function deleteFleet(i){
+            if(confirm("Are You Sure")){
+                data = data.filter(x=>x.id!== i);
+                render();
+            }
+        }
     </script>
 </body>
 </html>
